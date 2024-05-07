@@ -13,7 +13,7 @@ class ApiDemosTests:
                 'automationName': 'uiautomator2',
                 'platformVersion': '13',
                 'deviceName': 'Android Emulator',
-                'app': '',
+                'app': 'C:\APK\ApiDemos-debug.apk',
                 'noReset': True,
             }
         )

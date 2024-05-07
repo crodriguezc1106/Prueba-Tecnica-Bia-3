@@ -29,4 +29,3 @@ Detener el servicio de alarma
     When Doy clic en la opcion Alarm service
     And Doy clic en el boton Stop Alarm Service
     Then Deberia ver un mensaje de alerta diciendo Repeating alarm has been unscheduled
-
