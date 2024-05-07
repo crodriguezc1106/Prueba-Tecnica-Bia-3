@@ -13,7 +13,7 @@ class ApiDemosTests:
                 'automationName': 'uiautomator2',
                 'platformVersion': '13',
                 'deviceName': 'Android Emulator',
-                'app': 'C:\APK\ApiDemos-debug.apk',
+                'app': 'appDemo/ApiDemos-debug.apk',
                 'noReset': True,
             }
         )
@@ -97,4 +97,3 @@ class ApiDemosTests:
             locator_toast
         )
         assert mensaje_toast, f"El mensaje Toast con el texto '{mensaje}' no fue encontrado."
-

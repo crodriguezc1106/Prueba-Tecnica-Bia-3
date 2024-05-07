@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Pruebas de servicio de alarma en la aplicacion ApiDemos
-Library           ../resources/ApiDemosTests.py
+Libraryappium           ../resources/ApiDemosTests.py
 
 *** Test Cases ***
 Visualizar la opción de aplicación en la pantalla de inicio
