@@ -1,6 +1,6 @@
 *** Settings ***
-Documentation     Pruebas de servicio de alarma en la aplicacion ApiDemos
-Libraryappium           ../resources/ApiDemosTests.py
+Documentation     Pruebas de servicio de alarma y visualizacion de la opcion ColorFilters en la aplicacion ApiDemos
+Library           ../resources/ApiDemosTests.py
 
 *** Test Cases ***
 Visualizar la opción de aplicación en la pantalla de inicio
@@ -24,8 +24,12 @@ Iniciar el servicio de alarma
     And Doy Clic En El Boton Start Alarm Service
     Then Deberia ver un mensaje de alerta diciendo Repeating alarm will go off in 15 seconds and every 15 seconds after based on the elapsed
 
-Detener el servicio de alarma
-    Given Estoy en la pantalla de opciones de alarma
-    When Doy clic en la opcion Alarm service
-    And Doy clic en el boton Stop Alarm Service
-    Then Deberia ver un mensaje de alerta diciendo Repeating alarm has been unscheduled
+Acceder a la opción Graphics desde la pantalla de inicio
+    Given Estoy en la pantalla de inicio
+    When Doy Clic En La Opcion Graphics
+    And Deberia Ver Una Pantalla Con Las Opciones Graficas
+
+Visualizar y seleccionar la opción ColorFilters
+    Given Estoy En La Pantalla De Opciones Graficas
+    When Doy Clic En La Opcion Colorfilters
+    Then Deberia ver una pantalla con el titulo SRC_ATOP

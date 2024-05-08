@@ -1,5 +1,6 @@
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
+from selenium.common import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 
@@ -13,8 +14,9 @@ class ApiDemosTests:
                 'automationName': 'uiautomator2',
                 'platformVersion': '13',
                 'deviceName': 'Android Emulator',
-                'app': 'appDemo/ApiDemos-debug.apk',
+                'app': '',
                 'noReset': True,
+                'autoGrantPermissions': True,
             }
         )
 
@@ -26,8 +28,18 @@ class ApiDemosTests:
         assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("App")').is_displayed()
 
     def estoy_en_la_pantalla_de_inicio(self):
-        assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
-                                        'new UiSelector().text("API Demos")').is_displayed()
+        try:
+            assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            'new UiSelector().text("App")').is_displayed()
+            assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            'new UiSelector().text("Views")').is_displayed()
+        except NoSuchElementException:
+            for contador in range(3):
+                self.driver.back()
+            assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            'new UiSelector().text("App")').is_displayed()
+            assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                            'new UiSelector().text("Views")').is_displayed()
 
     def doy_clic_en_la_opcion_app(self):
         self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("App")').click()
@@ -77,12 +89,29 @@ class ApiDemosTests:
         self.__validar_mensajes_alerta("Repeating alarm will go off in 15 seconds and every 15 seconds "
                                        "after based on the elapsed")
 
-    def doy_clic_en_el_boton_stop_alarm_service(self):
+    def doy_clic_en_la_opcion_graphics(self):
         self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
-                                 'new UiSelector().text("Stop Alarm Service")').click()
+                                 'new UiSelector().text("Graphics")').click()
 
-    def deberia_ver_un_mensaje_de_alerta_diciendo_repeating_alarm_has_been_unscheduled(self):
-        self.__validar_mensajes_alerta("Repeating alarm has been unscheduled")
+    def deberia_ver_una_pantalla_con_las_opciones_graficas(self):
+        assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                        'new UiSelector().text("AlphaBitmap")').is_displayed()
+        assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                        'new UiSelector().text("FingerPaint")').is_displayed()
+
+    def estoy_en_la_pantalla_de_opciones_graficas(self):
+        assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                        'new UiSelector().text("AlphaBitmap")').is_displayed()
+        assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                        'new UiSelector().text("FingerPaint")').is_displayed()
+
+    def doy_clic_en_la_opcion_colorfilters(self):
+        self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                 'new UiSelector().text("ColorFilters")').click()
+
+    def deberia_ver_una_pantalla_con_el_titulo_src_atop(self):
+        assert self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR,
+                                        'new UiSelector().text("SRC_ATOP")').is_displayed()
 
     def __validar_mensajes_alerta(self, mensaje):
         locator_toast = f"//*[contains(@text, '{mensaje}')]"
